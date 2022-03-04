@@ -41,10 +41,11 @@ router.post('/event', async (req, res) => {
     }
 });
 
-router.post('/event/like', async (req, res) => {
+router.post('/event/reaction', async (req, res) => {
+    console.log('reacting....');
     try {
-        await axios.put(`${apiServer}/api/event/like/` + req.body.id);
-        res.redirect('/');
+        await axios.put(`${apiServer}/api/event/${req.body.id}/${req.body.reactionType}`);
+        setTimeout(() => res.redirect('/'), 100);
     } catch (e) {
         console.log('Put /event Error: ', e.message);
         renderError(res, e);
